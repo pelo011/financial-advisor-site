@@ -1,26 +1,94 @@
+/* ─────────────────────────────────────────────────────────────
+   Tailwind v4 — single @import replaces the three @tailwind
+   directives from v3. Custom theme values live in @theme.
+   ───────────────────────────────────────────────────────────── */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─── Custom design tokens (replaces tailwind.config theme) ── */
+@theme {
+  /* Colors */
+  --color-navy:        #0B1F3A;
+  --color-navy-light:  #1a3a5c;
+  --color-navy-muted:  #2C4A6E;
+  --color-navy-50:     #f0f4f9;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-gold:        #C9A96E;
+  --color-gold-light:  #E8D5B0;
+  --color-gold-dark:   #A07F44;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-ivory:       #F8F5EF;
+  --color-ivory-dark:  #EDE8DF;
+
+  --color-stone-warm:   #9B8E7D;
+  --color-stone-border: #E5DDD0;
+
+  /* Font families (CSS variables injected by next/font) */
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans:  var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Named keyframe animations */
+  --animate-fade-in-up: fadeInUp 0.7s ease forwards;
+  --animate-fade-in:    fadeIn   0.6s ease forwards;
+
+  /* Keyframe definitions */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 }
 
+/* ─── Smooth scrolling ───────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Base body styles ───────────────────────────────────────── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ivory);
+  color:            var(--color-navy);
+  font-family:      var(--font-sans);
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+/* ─── Custom scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #F8F5EF; }
+::-webkit-scrollbar-thumb { background: #C9A96E; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #A07F44; }
+
+/* ─── Animation delay utilities ─────────────────────────────── */
+@utility animation-delay-100 { animation-delay: 100ms; }
+@utility animation-delay-200 { animation-delay: 200ms; }
+@utility animation-delay-300 { animation-delay: 300ms; }
+@utility animation-delay-400 { animation-delay: 400ms; }
+@utility animation-delay-500 { animation-delay: 500ms; }
+@utility animation-delay-600 { animation-delay: 600ms; }
+@utility animation-delay-700 { animation-delay: 700ms; }
+@utility animation-delay-800 { animation-delay: 800ms; }
+
+/* Classes used to trigger CSS animations from JS */
+@utility animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.7s ease forwards;
+}
+@utility animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* ─── Form input focus ring ──────────────────────────────────── */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #C9A96E40;
 }
